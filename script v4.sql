@@ -77,7 +77,7 @@ CREATE TABLE SensorLeitura (
     leitura INT NOT NULL,
     dataLeitura DATETIME DEFAULT CURRENT_TIMESTAMP
 );
--- -----------------------------------------
+
 CREATE TABLE Usuario (
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nomeCompleto VARCHAR(45) NOT NULL,
