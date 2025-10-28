@@ -78,6 +78,19 @@ CREATE TABLE SensorLeitura (
     dataLeitura DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO SensorLeitura (fkSensor, leitura, dataLeitura) VALUES
+	(1, 23, '2025-10-27 08:30:00'),
+	(1, 25, '2025-10-27 09:00:00'),
+	(1, 27, '2025-10-27 09:30:00'),
+
+	(2, 18, '2025-10-27 08:45:00'),
+	(2, 20, '2025-10-27 09:15:00'),
+	(2, 19, '2025-10-27 09:45:00'),
+
+	(3, 30, '2025-10-27 08:00:00'),
+	(3, 31, '2025-10-27 08:30:00'),
+	(3, 29, '2025-10-27 09:00:00');
+
 CREATE TABLE Usuario (
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nomeCompleto VARCHAR(45) NOT NULL,
@@ -90,6 +103,7 @@ CREATE TABLE Usuario (
 			FOREIGN KEY (fkMercado)
 				REFERENCES Mercado (idMercado)
 );
+
 
 INSERT INTO Usuario (nomeCompleto, tipoUsuario, senha, fkMercado) VALUES
 	('Lucas Almeida da Silva', 'Administrador', 'LuAS123', 1),
@@ -134,3 +148,26 @@ INSERT INTO Telefone (fkUsuario, DDD, numero, tipoNum) VALUES
 	(1, '11', '940284930', 'Corporativo'),
 	(2, '11', '972738134', 'Pessoal'),
 	(3, '11', '24028430', 'Corporativo');
+
+
+SELECT m.nome 'Nome Mercado',
+	m.cnpj CNPJ,
+    e.cep,
+    e.numero 'Número'
+    from mercado m join endereco e on e.fkMercado = m.idMercado;
+
+SELECT 
+	m.nome 'Nome Mercado',
+	s.nome 'Nome Setor',
+	se.idSensor 'Identificador do Sensor',
+	sl.idSensorLeitura 'Leitura do Sensor',
+	sl.leitura 'Valor da Leitura',
+	sl.dataLeitura 'Data da Leitura'
+FROM mercado m 
+	JOIN setor s 
+		ON s.fkMercado = m.idMercado
+	JOIN sensor se 
+		ON se.fkSetor = s.idSetor 
+		AND se.fkMercado = m.idMercado
+	JOIN sensorleitura sl 
+		ON sl.fkSensor = se.idSensor;
