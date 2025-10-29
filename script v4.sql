@@ -58,13 +58,16 @@ CREATE TABLE Sensor (
 	fkMercado INT NOT NULL,
 		CONSTRAINT fkSetorMercado
 			FOREIGN KEY (fkMercado)
-				REFERENCES Mercado (idMercado)
+				REFERENCES Mercado (idMercado),
+	statusSensor VARCHAR(45),
+		CONSTRAINT chkStatusSensor
+			CHECK (statusSensor IN ('Ligado', 'Desligado'))
 );
 
-INSERT INTO Sensor (fkSetor, fkMercado) VALUES
-	(1, 1),
-	(2, 1),
-	(3, 2);
+INSERT INTO Sensor (fkSetor, fkMercado, statusSensor) VALUES
+	(1, 1, 'Ligado'),
+	(2, 1, 'Ligado'),
+	(3, 2, 'Ligado');
 
 CREATE TABLE SensorLeitura (
 	idSensorLeitura INT AUTO_INCREMENT,
