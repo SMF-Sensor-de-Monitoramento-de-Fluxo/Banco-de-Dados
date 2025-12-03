@@ -48,7 +48,15 @@ CREATE TABLE Setor (
 INSERT INTO Setor (fkMercado, nome) VALUES
 	(1, 'Bebidas'),
 	(1, 'Açougue'),
-	(3,'Bebidas');
+	(1,'Bebidas'),
+    (1, 'limpeza'),
+    (1, 'hortifruti'),
+    (1, 'higiene pessoal'),
+    (1, 'frios e laticinios'),
+    (1, 'padaria'),
+    (1, 'congelados');
+    
+    select * from Setor; 
 
 CREATE TABLE Sensor (
 	idSensor INT PRIMARY KEY AUTO_INCREMENT,
@@ -68,7 +76,18 @@ CREATE TABLE Sensor (
 INSERT INTO Sensor (fkSetor, fkMercado, statusSensor) VALUES
 	(1, 1, 'Ligado'),
 	(2, 1, 'Ligado'),
-	(3, 2, 'Ligado');
+	(3, 1, 'Ligado'),
+    (4, 1,'ligado'),
+    (5, 1,'ligado'),
+    (6, 1,'ligado'),
+    (7, 1,'ligado'),
+    (8, 1, 'ligado'),
+    (9, 1, 'ligado');
+    
+    select * from Setor;
+    
+    select * from Sensor;
+    truncate Mercado;
 
 CREATE TABLE SensorLeitura (
 	idSensorLeitura INT AUTO_INCREMENT,
@@ -91,6 +110,9 @@ CREATE TABLE Usuario (
     telefone char(11),
 	senha VARCHAR(45) NOT NULL
 );
+
+INSERT INTO Usuario VALUES 
+	(DEFAULT, 'Suporte SMF', 'suporte@smf.com', NULL, NULL, 'Suporte@123');
     
 CREATE VIEW totalclientes_vw AS 
 	SELECT 
@@ -147,3 +169,12 @@ WHERE DATE(sl.dataLeitura) = CURDATE()
 GROUP BY hora
 ORDER BY hora;
 
+SELECT * FROM Usuario;
+
+select fkSensor idSensor, count(leitura) movimento from SensorLeitura 
+where date(dataLeitura) between '2000-10-01' and '2025-12-30' and 
+time(dataLeitura) between '10:00' and '23:00' group by idSensor;
+
+select * from SensorLeitura;
+
+select*from Sensor;
